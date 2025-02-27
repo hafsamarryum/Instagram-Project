@@ -1,0 +1,13 @@
+<div id="<%= dom_id(comment) %>" class="d-flex justify-content-between w-100 ">
+   <div>
+  <strong><%= comment.user.name %> Comment:</strong> <%= comment.content %>
+  </div>
+  <% if comment.user == current_user %>
+    <%= button_to comment_path(comment), 
+                  method: :delete, 
+                  data: { turbo_confirm: "Are you sure?" }, 
+                  class: "btn btn-link p-0 text-muted", style:"font-size: 10px;" do %>
+      <i class="bi bi-x-lg"></i>
+    <% end %>
+  <% end %>
+</div>

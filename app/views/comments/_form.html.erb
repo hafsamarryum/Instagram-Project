@@ -1,0 +1,5 @@
+ <%= form_with model: [post, Comment.new], local: false, data: { turbo_frame: "new-comment-post-#{post.id}" }, class: "w-100" do |f| %>
+         <%#= f.hidden_field :user_id, value: current_user.id %>
+         <%#= f.hidden_field :post_id, value: post.id %>
+          <%= f.text_field :content, class:"form-control fs-6 mt-2 py-2", placeholder:"Add a comment ....", rows:"1", style:"resize: none; border: 1px solid #dedefc; border-radius: 8px", required: true %>
+  <% end %>

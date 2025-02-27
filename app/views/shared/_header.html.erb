@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-0">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <%= image_tag "instalogo.png", alt: "Instagram Logo", class: "img-fluid", style: "width: 30px; height: auto;" %>
+    </a>
+
+    <!-- Centered Search Bar -->
+    <div class="mx-auto" >
+     <%= form_tag users_path, method: :get, class: "d-flex" do %>
+       <%= text_field_tag :query, params[:query], class: "form-control me-2", placeholder: "Search by name or email..." %>
+     <% end %>
+    </div>
+
+    <!-- Right Side Links/Icons -->
+    <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="bi bi-compass fs-4 "></i> <!-- Explore Icon -->
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="bi bi-heart fs-4"></i> <!-- Notification Icon -->
+        </a>
+      </li>
+      <li class="nav-item">
+        <%= link_to user_path(current_user), class: "nav-link" do %>
+        <i class="bi bi-person fs-3"></i>
+        <% end %>
+
+      </li>
+    </ul>
+  </div>
+</nav>

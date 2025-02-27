@@ -1,0 +1,25 @@
+<div class="col text-end">
+  <% if (bookmark = current_user.bookmarks.find_by(post: post)) %>
+    <%= button_to(
+      bookmark_path(bookmark), # Destroy route
+      method: :delete,
+      remote: true,
+      class: "border-0 bg-transparent p-0",
+      id: "bookmark-btn-#{post.id}",
+      data: { turbo_frame: "bookmark-post-#{post.id}" }
+    ) do %>
+      <i class="bi bi-bookmark-fill text-muted fs-5"></i>
+    <% end %>
+  <% else %>
+    <%= button_to(
+      post_bookmarks_path(post), # Create route
+      method: :post,
+      remote: true,
+      class: "border-0 bg-transparent p-0",
+      id: "bookmark-btn-#{post.id}",
+      data: { turbo_frame: "bookmark-post-#{post.id}" }
+    ) do %>
+      <i class="bi bi-bookmark text-muted fs-5"></i>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,74 @@
+<div class="d-flex flex-column align-items-center mt-3">
+  <div class="row col-xl-10 col-lg-11 col-12">
+    <div class="col-lg-8 col-md-7 px-0 d-flex" style="margin: -10px 0; background-color: #fafafa; ">
+      <div class="align-self-center">
+        <div class="p-3 pt-0 pb-2 w-100 ">
+          <%= render "photos", {post: @post} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-5 mt-sm-4 mt-md-0 py-2 mb-4" style="border:1px solid #dedefc; border-radius:20px">
+      <div class="row px-3 d-flex align-items-center" >
+
+        <div class="d-flex w-100 justify-content-between align-items-center">
+         <div class="d-flex align-items-center fs-4">
+         <%= link_to user_path(@post.user), style: "text-decoration: none;" do %>
+         <%= avatar_or_initial(@post.user) %>
+        <% end %>
+
+        <%= link_to user_path(@post.user), style: "text-decoration: none; color:#262626; margin-left:12px;", title: @post.user.name do %>
+        <strong><%= @post.user.name %></strong>
+        <% end %>
+        </div>
+
+        <% if @post.is_belongs_to? current_user %>
+          <%= button_to post_path(@post), method: :delete, class: "ml-auto mx-0 my-auto border-0 bg-transparent" do %>
+          <i class="bi bi-trash fs-6 text-muted"></i>
+           <% end %>
+        <% end %>
+        </div>
+      </div>
+      <hr class="mb-0">
+      <div class="py-2" style="height: 160px; overflow: auto;">
+        <% if @post.content.present? %>
+        <div>
+          <span><strong><%= @post.user.name %></strong></span>
+          <span><%= @post.content %></span>
+        </div>
+         <% end %>
+        <!--load comment -->
+        <%= render "comment_list", post: @post %>
+      </div>
+      <hr class="mt-0">
+
+      <div class="row my-3 align-items-center">
+        <div class="d-flex w-100 justify-content-between">
+          <div class="d-flex">
+            <%= render 'like_icon', post: @post %>
+             <a href="#" class="text-decoration-none ms-3">
+              <i class="bi bi-chat fs-4 text-muted"></i>
+             </a>
+          </div>
+          <%= render "bookmarks/bookmark_icon", post: @post %>
+
+      </div>
+      </div>
+      
+      <div id="like-text-post-<%= @post.id.to_s %>" >
+        <%= render "like_text", {likes: @likes} %>
+      </div> 
+
+      <div class="text-muted mt-2 fs-9">
+        <%= link_to time_ago_in_words(@post.created_at).upcase + " AGO", post_path(@post) %>
+      </div>
+      <hr class="mb-0">
+
+       <!-- New Comment Form -->
+      <%= turbo_frame_tag "new-comment-post-#{@post.id}" , class:"row my-3" do %>
+       <%= render 'comments/form', post: @post %>
+       <% end %>
+
+    </div>
+  </div>
+</div>

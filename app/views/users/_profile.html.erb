@@ -1,0 +1,24 @@
+<% if user.present? %>
+  <div class="row w-60 justify-content-md-center justify-content-center align-items-center" style="padding:30px 60px ; border-bottom: 1px solid #efefef;">
+    <div class="d-flex justify-content-center align-item-center" style="width:600px">
+      <div class="col-md-3">
+        <%= avatar_or_initial(current_user, size: 120) %>
+      </div>
+      <div class="col-md-8 px-0">
+        <div class="px-0 d-flex justify-content-between align-item-center mt-4" style="width:370px; margin-left:12px;">
+          <p style="font-size: 32px; line-height: 40px; font-weight: 200;"> <%= @user.name %> </p>
+          <% if @user == current_user %>
+          <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-outline-dark pt-1", style: "height: 35px;  line-height: 24px; padding: 0 20px; width: 123px; border-color: #dbdbdb; font-size: 14px; font-weight: bold; margin: 8px 0 0 15px;" %>
+          <!-- Button trigger modal -->
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" , style="  background-color: transparent; border: none;">
+            <i class="bi bi-gear fs-3 text-muted"></i>
+          </button>
+          <% end %>
+        </div>
+        <div class="row">
+          <p style="font-size: 16px; font-weight: bold;  margin-left:12px;"> <%= @user.email %> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

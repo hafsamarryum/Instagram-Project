@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@hotwired/turbo-rails": "^8.0.12",
+    "dropzone": "^6.0.0-beta.2",
+    "toastr": "^2.1.4"
+  }
+}

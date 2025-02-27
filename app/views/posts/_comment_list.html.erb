@@ -1,0 +1,9 @@
+<% if defined?(post) && post.present? %>
+  <div id="comments-list-<%= post.id %>">
+    <% post.comments.each do |comment| %>
+      <%= render "comments/comment", comment: comment %>
+    <% end %>
+  </div>
+<% else %>
+  <p>No comments available.</p>
+<% end %>

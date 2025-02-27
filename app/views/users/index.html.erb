@@ -1,0 +1,16 @@
+<% if @user.present? %>
+  <%= render "users/profile", user: @user %>
+<% end %>
+<hr>
+
+<div class="container w-50 mt-4">
+  <!-- Display Searched User's Posts -->
+<% if @posts.any? %>
+  <div id="posts">
+  <h4>Search Results:</h4>
+    <%= render 'posts/posts_list', posts: @posts %>
+  </div>
+<% else %>
+  <p>No posts found for the searched users.</p>
+<% end %> 
+</div>

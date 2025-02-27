@@ -1,0 +1,79 @@
+<div class="row mt-5">
+  <div class="col-sm-3 p-0" style="background-color: white; border: 1px solid #dbdbdb;">
+    <div class="list-group">
+      <a href="#" class="list-group-item-action p-3 pb-2" style="border: none; color: #262626; border-radius: 0; font-size: 16px; border-left: 2px solid transparent; font-weight: bold; border-left-color: #262626; ">Edit Profile</a>
+      <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "list-group-item-action p-3", style: "border: none;" %>
+    </div>
+  </div>
+  <div class="col-sm-9" style="border-left: none; border: 1px solid rgba(219, 219, 219, 0.64); ">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
+
+
+    <div class="row mb-4 mt-4" style="width:300px; margin-left:140px;">
+      <div class="col-sm-3">
+        <%= avatar_or_initial(current_user, size: 60) %>
+      </div>
+      <div class="col-sm-9 mt-2">
+        <p class="fw-b fs-4"><%= @user.name %></p>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= f.label :name, class: "col-sm-3 col-form-label text-end fw-bold" %>
+      <div class="col-sm-9">
+        <%= f.text_field :name, autofocus: true, class: "form-control col-sm-9" %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= f.label :website, class: "col-sm-3 col-form-label text-end fw-bold" %>
+      <div class="col-sm-9">
+        <%= f.text_field :website, class: "form-control col-sm-9" %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= f.label :bio, class: "col-sm-3 col-form-label text-end fw-bold" %>
+      <div class="col-sm-9">
+        <%= f.text_field :bio, class: "form-control col-sm-9" %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= f.label :gender, class: "col-sm-3 col-form-label text-end fw-bold" %>
+      <div class="col-sm-9">
+        <%= f.select :gender, [['Male', 'male'], ['Female', 'female'], ['Other', 'other']], { prompt: "Select Gender" }, class: "form-control col-sm-9" %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= f.label :birthday, class: "col-sm-3 col-form-label text-end fw-bold" %>
+      <div class="col-sm-9 mt-2">
+        <%= f.date_select :birthday, start_year: 1900, end_year: Date.today.year, class: "form-control col-sm-9" %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= f.label :location, class: "col-sm-3 col-form-label text-end fw-bold" %>
+      <div class="col-sm-9">
+        <%= f.text_field :location, class: "form-control col-sm-9" %>
+      </div>
+    </div>
+
+
+    <div class="form-group row mb-3">
+      <%= f.label :avatar, class: "col-sm-3 col-form-label text-end fw-bold" %>
+      <div class="col-sm-9">
+        <%= f.file_field :avatar, autofocus: false, class: "form-control col-sm-9" %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-9">
+        <%= f.submit "Update", class: "btn btn-primary" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

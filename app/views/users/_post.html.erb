@@ -1,0 +1,20 @@
+<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 mx-3 w-100 gap-2">
+  <% posts.each do |post| %>
+    <div class="col position-relative px-0">
+      <%= link_to post_path(post) do %>
+        <div class="d-flex justify-content-center align-items-center position-absolute text-white fs-5 fw-bold w-100 h-100 bg-dark bg-opacity-25 transition">
+          <span>
+            <i class="bi bi-heart-fill fs-6 text-primary"></i>
+            <%= post.likes.size %>
+            <i class="bi bi-chat-fill fs-6 text-primary"></i>
+            <%= post.comments.size %>
+          </span>
+        </div>
+      <% end %>
+
+      <% if post.images.attached? %>
+        <%= image_tag post.images.first, class: "img-fluid mx-auto rounded w-100" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

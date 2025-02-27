@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "like-icon-post-#{@post.id}" do %>
+  <%= render partial: 'posts/like_icon', locals: { post: @post } %>
+<% end %>

@@ -1,0 +1,17 @@
+<div id="like-icon-post-<%= post.id %>">
+  <% if post.liked_by?(current_user) %>
+    <%= button_to like_path(post.likes.find_by(user: current_user)),
+                  method: :delete,
+                  class: "text-decoration-none border-0",
+                  data: { turbo_frame: "like-icon-post-#{post.id}" } do %>
+      <i class="bi bi-heart-fill fs-4 text-danger"></i>
+    <% end %>
+  <% else %>
+    <%= button_to post_likes_path(post),
+                  method: :post,
+                  class: "text-decoration-none border-0",
+                  data: { turbo_frame: "like-icon-post-#{post.id}" } do %>
+      <i class="bi bi-heart fs-4 text-muted"></i>
+    <% end %>
+  <% end %>
+</div>
