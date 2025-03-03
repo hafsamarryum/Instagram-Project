@@ -1,0 +1,12 @@
+<div class="w-100 d-flex justify-content-center align-items-center">
+<div class="w-50 d-flex flex-column justify-content-center align-items-center">
+<h2 class="mt-2">Archived Posts</h2>
+
+<div id="archived_posts">
+  <% if @posts.present? %>
+    <%= render 'posts/posts_list', posts: @posts %>
+  <% else %>
+    <p class="m-2 p-2">No archived posts found.</p>
+  <% end %>
+</div>
+</div>

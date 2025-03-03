@@ -1,7 +1,5 @@
-
-<h2>Posts</h2>
-<% @posts.each do |post| %>
-<div class="card my-3 p-2 ">
+<% posts.each do |post| %>
+<div class="card my-3 p-2" id="post_<%= post.id %>">
   <div class="p-3 pb-1 pt-1 fs-5 d-flex">
     <%= link_to user_path(post.user), style: "text-decoration: none; " do %>
     <%= avatar_or_initial(post.user) if post.user.present? %>
@@ -12,12 +10,21 @@
       <strong class="ml-2"><%= post.user.name %></strong>
       <% end %>
 
-      <% if post.is_belongs_to? current_user %>
-      <%= button_to post_path(post), method: :delete, class: "ms-auto mx-0 border-0 bg-transparent" do %>
-      <i class="bi bi-trash fs-6 text-muted"></i>
-      <% end %>
+      <% if post.user == current_user %>
+
+       <% if post.archived? %>
+          <%= button_to "Unarchive", unarchive_post_path(post), method: :patch, class: "btn btn-success btn-sm", data: { turbo_stream: true } %>
+        <% else %>
+          <%= button_to "Archive", archive_post_path(post), method: :patch, class: "btn btn-warning btn-sm", data: { turbo_stream: true } %>
+       <% end %>
+
+       <%= button_to post_path(post), method: :delete, class: "ms-auto mx-0 border-0 bg-transparent" do %>
+        <i class="bi bi-trash fs-6 text-muted"></i>
+        <% end %>
+
       <% end %>
     </div>
+
   </div>
    <hr class="mt-1">
 

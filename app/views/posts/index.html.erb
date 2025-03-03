@@ -1,53 +1,48 @@
 <div class="d-flex flex-column align-items-center mt-3">
-  <div class="col-xl-7 col-lg-8 col-md-10 col-sm-11 ">
+  <div class="col-xl-7 col-lg-8 col-md-10 col-sm-11">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header fw-bold">
         Create Post
       </div>
-      <div class="card-body p-2 ">
-        <%= form_for @post, html: { multipart: true, class: "dropzone upload-images border-0" } do |f| %>
-        <div class="form-group row mt-2">
-          <div class="col-auto pr-0 pl-0">
-            <%= avatar_or_initial(current_user)  %>
-          </div>
-          <div class="col py-0">
-            <%= f.text_area :content, class: "form-control", placeholder: "Say something about this ...", style: "resize: none; border:1px solid #dedefc;" %>
-          </div>
-        </div>
-
-        <%= f.file_field :images, type: :file, multiple: true, class: "d-none", id: "hiddenFileInput" %>
-
-        <div class="dz-message m-0"></div>
-        <div class="dropzone-previews mb-3 mt-2">
-          <label for="hiddenFileInput" class="dropzone-previews mb-3 mt-2">
-            <div class="d-flex align-items-center justify-content-center rounded-1 p-5 m-1" style="height: 120px; width: 120px; border:2px dashed #dedefc; cursor: pointer;">
-              <i class="bi bi-plus fs-1 fw-bold" aria-hidden="true" style="color:grey;"></i>
+      <div class="card-body p-2">
+        <div class="ml-4">
+          <%= form_for @post, html: { multipart: true, class: "dropzone upload-images border-0" } do |f| %>
+            <div class="form-group row mt-2">
+              <div class="col-auto pl-2 pr-0">
+                <%= avatar_or_initial(current_user) %>
+              </div>
+              <div class="col px-0">
+                <%= f.text_area :content, class: "form-control", placeholder: "Say something about this ...", style: "resize: none; border:1px solid #dedefc; width:95%;" %>
+              </div>
             </div>
-          </label>
+
+            <%= f.file_field :images, type: :file, multiple: true, class: "d-none", id: "hiddenFileInput" %>
+
+            <div class="dz-message m-0"></div>
+            <div class="dropzone-previews mt-2">
+              <label for="hiddenFileInput" class="dropzone-previews mb-3 mt-2">
+                <div class="d-flex align-items-center justify-content-center rounded-1 p-5 m-1"
+                     style="height: 120px; width: 160px; border:2px dashed #dedefc; cursor: pointer;">
+                  <i class="bi bi-plus fs-1 fw-bold" aria-hidden="true" style="color:grey;"></i>
+                </div>
+              </label>
+            </div>
+            <%= f.submit "Post", class: "btn btn-primary" %>
+          <% end %> 
         </div>
-        <%= f.submit "Post", class: "btn btn-primary" %>
-        <% end %>
       </div>
     </div>
-
+ 
     <div id="posts">
-      <%= render 'posts_list', post: @post %>
-    </div>
+      <%= render 'posts/posts_list', posts: @posts %>
+    </div> 
+
   </div>
   <br>
-
-
-
-  
- <!-- Pagination Controls -->
-
-<%
-=begin%>
- <div class="d-flex justify-content-center mt-3">
-    <%= pagy_bootstrap_nav(@pagy).html_safe %>
-</div> 
-<%
-=end%>
-
-
+  <!-- Pagination Controls -->
+    <div class="d-flex justify-content-center mt-3">
+      <%= raw pagy_bootstrap_nav(@pagy) %>
+    </div>
 </div>
+
+

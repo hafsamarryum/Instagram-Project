@@ -13,6 +13,8 @@ gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "hotwire-rails"
+
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -65,8 +67,5 @@ end
 # gem 'bcrypt', platforms: [:ruby], "~> 3.1", require: false
 
 gem "devise"
-gem "toastr-rails"
 gem "image_processing", "~> 1.2"
-gem "bootstrap", "~> 5.0"
-gem "dartsass-rails"
 gem "pagy"

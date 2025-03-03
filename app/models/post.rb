@@ -8,6 +8,9 @@ class Post < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 300 }
 
+  scope :unarchived, -> { where(archived: false)  }
+  scope :archived, -> { where(archived: true) }
+
   def is_belongs_to?(user)
     self.user_id == user.id
   end
