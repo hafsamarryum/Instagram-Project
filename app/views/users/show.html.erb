@@ -23,6 +23,7 @@
         <div class="nav d-flex justify-content-center" style="border-top: 1px solid #ddd;" id="nav-tab" role="tablist">
           <button class="nav-link fw-bold py-2 active" id="nav-posts-tab" data-bs-toggle="tab" data-bs-target="#nav-posts" type="button" role="tab" aria-controls="nav-posts" aria-selected="true" style="color: #262626; background: transparent; margin-top: -1px; border-radius:0; border-top: 1px solid #262626;">POSTS</button>
           <button class="nav-link fw-bold py-2" id="nav-saved-tab" data-bs-toggle="tab" data-bs-target="#nav-saved" type="button" role="tab" aria-controls="nav-saved" aria-selected="false" style="color:#999; background: transparent; margin-top: -1px; border-radius:0; border-top: 1px solid transparent;">SAVED</button>
+          <button class="nav-link fw-bold py-2" id="nav-archived-posts-tab" data-bs-toggle="tab" data-bs-target="#nav-archived-posts" type="button" role="tab" aria-controls="nav-archived-posts" aria-selected="false" style="color:#999; background: transparent; margin-top: -1px; border-radius:0; border-top: 1px solid transparent;">ARCHIVED POSTS</button>
         </div>
       </nav>
       <% end %>
@@ -37,6 +38,11 @@
             <%= render "post", {posts: @saved} if @user == current_user %>
           </div>
         </div>
+        <div class="tab-pane fade" id="nav-archived-posts" role="tabpanel" aria-labelledby="nav-archived-posts-tab">
+          <div class="w-100 px-4">
+            <%= render 'posts/archived' %>
+          </div>
+        </div>
+        </div>
       </div>
     </div>
-  </div>

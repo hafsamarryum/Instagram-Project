@@ -27,6 +27,7 @@ class UsersController < ApplicationController
         @posts = @user.posts.joins(:images_attachments).distinct.includes(:likes, :comments)
         @saved = Post.joins(:bookmarks).where("bookmarks.user_id=?", current_user.id).joins(:images_attachments).distinct.
         includes(:likes, :comments) if @user == current_user
+        @posts = current_user.posts.archived.order(created_at: :desc)
         @followers = @user.followers
         @following = @user.following
     end

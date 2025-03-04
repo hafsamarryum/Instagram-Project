@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_post, only: [:show, :destroy, :archive, :unarchive]
+  before_action :find_post, only: [ :show, :destroy, :archive, :unarchive ]
 
   def index
-    @posts = Post.includes(:images_attachments, :user, :likes).order(created_at: :desc)
+    @posts = Post.where(archived: false).includes(:images_attachments, :user, :likes).order(created_at: :desc)
     @post = Post.new
     @pagy, @posts = pagy(@posts, items: 6)
   end
@@ -38,11 +38,11 @@ class PostsController < ApplicationController
     end
     redirect_to posts_path
   end
- 
+
   def archive
     if @post.user == current_user
       @post.update(archived: true)
-  
+
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.remove("post_#{@post.id}")
@@ -54,31 +54,29 @@ class PostsController < ApplicationController
       redirect_to posts_path
     end
   end
-  
+
   def unarchive
     if @post.user == current_user
       @post.update(archived: false)
-  
-      respond_to do |format|
+
+     respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace("post_#{@post.id}") do
             render partial: "posts/posts_list", locals: { post: @post }
           end
         end
-        format.html { redirect_to archived_posts_path, notice: "Post unarchived successfully!" }
+        format.html { redirect_to posts_path, notice: "Post unarchived successfully!" }
       end
     else
       flash[:alert] = "You don't have permission to do that!"
-      redirect_to archived_posts_path
+      redirect_to posts_path
     end
   end
-  
 
   def archived
     @posts = current_user.posts.archived.order(created_at: :desc)
   end
-  
-  
+
 
   private
 

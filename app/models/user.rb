@@ -12,32 +12,33 @@ class User < ApplicationRecord
   has_many :bookmarks
   has_many :bookmarked_posts, through: :bookmarks, source: :post
   has_one_attached :avatar
-    # Followed users (users that the current user follows)
-    has_many :follows, foreign_key: :follower_id, dependent: :destroy
-    has_many :following, through: :follows, source: :followed
-  
-    # Followers (users who follow the current user)
-    has_many :reverse_follows, class_name: 'Follow', foreign_key: :followed_id, dependent: :destroy
-    has_many :followers, through: :reverse_follows, source: :follower
+
+   # Users that the current user is following
+   has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
+   has_many :following, through: :active_follows, source: :followed
+ 
+   # Users that are following the current user
+   has_many :passive_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
+   has_many :followers, through: :passive_follows, source: :follower
 
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :gender, inclusion: { in: [ "male", "female", "other" ], message: "%{value} is not a valid gender" }, allow_nil: true
   validates :birthday, presence: true, allow_nil: true
   validates :location, length: { maximum: 100 }
-  # validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "must be a valid email address" }
-  
-   # Methods for following and unfollowing
-   def follow(user)
-    following << user unless self == user || following.include?(user)
+   # validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "must be a valid email address" }
+
+   # Methods to follow and unfollow
+   def follow(other_user)
+    active_follows.create(followed_id: other_user.id)
+   end
+
+  def unfollow(other_user)
+    active_follows.find_by(followed_id: other_user.id).destroy
   end
 
-  def unfollow(user)
-    following.delete(user)
-  end
-
-  # Check if a user is following another user
-  def following?(user)
-    following.include?(user)
+  # Check if the user is following another user
+  def following?(other_user)
+    following.include?(other_user)
   end
 end

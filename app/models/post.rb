@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  before_create :set_archived_to_false
+
   belongs_to :user
   has_many_attached :images, dependent: :destroy
   has_many :likes, -> { order(created_at: :desc) }, dependent: :destroy
@@ -27,5 +29,9 @@ class Post < ApplicationRecord
   private
   def purge_images
     images.purge_later
+  end
+
+  def set_archived_to_false
+    self.archived ||= false
   end
 end

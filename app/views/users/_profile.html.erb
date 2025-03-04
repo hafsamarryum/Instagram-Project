@@ -1,30 +1,64 @@
 <% if user.present? %>
-  <div class="row w-60 justify-content-md-center justify-content-center align-items-center" style="padding:30px 60px ; border-bottom: 1px solid #efefef;">
-    <div class="d-flex justify-content-center align-item-center" style="width:600px">
-      <div class="col-md-3 mt-2 pl-4">
-        <%= avatar_or_initial(current_user, size: 150) %>
+<div class="row w-60 justify-content-md-center justify-content-center align-items-center" style="padding:30px 60px ; border-bottom: 1px solid #efefef;">
+  <div class="d-flex justify-content-center align-item-center" style="width:600px">
+    <div class="col-md-3 mt-2 pl-4">
+      <%= avatar_or_initial(current_user, size: 150) %>
+    </div>
+    <div class="col-md-8 px-0 mr-4">
+      <div class="px-0 d-flex justify-content-between align-item-center mt-4 " style="width:370px; margin-left:12px;">
+        <p style="font-size: 32px; line-height: 40px; font-weight: 200; padding-left:12px;"> <%= @user.name %> </p>
+        <% if @user == current_user %>
+        <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-outline-dark pt-1", style: "height: 35px;  line-height: 24px; padding: 0 20px; width: 123px; border-color: #dbdbdb; font-size: 14px; font-weight: bold; margin: 8px 0 0 20px;" %>
+        <!-- Button trigger modal -->
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" , style="  background-color: transparent; border: none;">
+          <i class="bi bi-gear fs-3 text-muted"></i>
+        </button>
+        <% end %>
       </div>
-      <div class="col-md-8 px-0">
-        <div class="px-0 d-flex justify-content-between align-item-center mt-4 " style="width:370px; margin-left:12px;">
-          <p style="font-size: 32px; line-height: 40px; font-weight: 200; padding-left:12px;"> <%= @user.name %> </p>
-          <% if @user == current_user %>
-          <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-outline-dark pt-1", style: "height: 35px;  line-height: 24px; padding: 0 20px; width: 123px; border-color: #dbdbdb; font-size: 14px; font-weight: bold; margin: 8px 0 0 20px;" %>
-          <!-- Button trigger modal -->
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" , style="  background-color: transparent; border: none;">
-            <i class="bi bi-gear fs-3 text-muted"></i>
-          </button>
-          <% end %>
-        </div>
-        <div class="row p-3 pt-1">
+      <div class="row p-3 pt-1">
         <div class="col-12 d-flex justify-content-between align-items-center">
           <p class="h6 font-weight-bold mb-0" style="margin-left:12px;"> <%= @user.email %> </p>
         </div>
-        <div class="col-12 d-flex gap-2 align-items-center mt-2">
-          <p class="h6 font-weight-bold mb-0" style="margin-left:12px;">Followers (<%= @user.followers.count %>)</p>
-          <p class="h6 font-weight-bold mb-0" style="margin-left:12px;">Following (<%= @user.following.count %>)</p>
-        </div>
-      </div>
 
+        <div class="col-12 w-75 d-flex gap-2 mt-2">
+          <div class="d-flex flex-column">
+            <button class="h6 font-weight-bold mb-0 border-0 position-relative p-2" style="margin-left:12px; width:110px;" type="button" data-bs-toggle="collapse" data-bs-target="#followersList" aria-expanded="false" aria-controls="followersList">Followers (<%= @user.followers.count %>)</button>
+            <div class="collapse" id="followersList">
+              <ul class="list-group mt-2">
+                <% @user.followers.each do |follower| %>
+                <li class="list-group-item">
+                  <%= link_to follower.name, user_path(follower) %>
+                </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column">
+            <button class="h6 font-weight-bold mb-0 border-0 position-relative p-2" style="margin-left:12px; width:115px;" type="button" data-bs-toggle="collapse" data-bs-target="#followingList" aria-expanded="false" aria-controls="followingList">Following (<%= @user.following.count %>)</button>
+            <div class="collapse" id="followingList">
+              <ul class="list-group mt-2">
+                <% @user.following.each do |followed_user| %>
+                <li class="list-group-item">
+                  <%= link_to followed_user.name, user_path(followed_user) %>
+                </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+
+          <div class="button">
+            <% if current_user != @user %>
+            <% if current_user.following?(@user) %>
+            <%= button_to "Unfollow", unfollow_user_path(@user), method: :delete, class: "btn btn-danger" %>
+            <% else %>
+            <%= button_to "Follow", follow_user_path(@user), method: :post, class: "btn btn-primary" %>
+            <% end %>
+            <% end %>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
