@@ -1,9 +1,16 @@
 class User < ApplicationRecord
+  # enum role: { user: 0, admin: 1 }
+
+  # Check if user is an admin
+  # def admin?
+  #   role == 'admin'
+  # end
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable, :confirmable, :trackable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # after_initialize :set_default_role, if: :new_record?
 
   has_many :posts, dependent: :destroy
   has_many :likes
@@ -41,4 +48,10 @@ class User < ApplicationRecord
   def following?(other_user)
     following.include?(other_user)
   end
+
+  private
+
+  #  def set_default_role
+  #    self.role ||= :user
+  #  end
 end

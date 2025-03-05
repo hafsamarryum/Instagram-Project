@@ -1,3 +1,12 @@
+<%
+=begin%>
+ <% if user_signed_in? %>
+<% if current_user.admin? %>
+   You are an admin
+<% end %> 
+<%
+=end%>
+
 <div class="d-flex flex-column align-items-center mt-3">
   <div class="col-xl-7 col-lg-8 col-md-10 col-sm-11">
     <div class="card">
