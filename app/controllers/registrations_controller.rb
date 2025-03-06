@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  
   def create
     super do |resource|
       if resource.persisted?
@@ -10,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
 
 
   protected
- 
+
   def update_resource(resource, params)
     if params[:avatar].present?
       resource.avatar.attach(params[:avatar])

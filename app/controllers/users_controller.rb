@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_user, only: [:show, :follow, :unfollow]
+    before_action :set_user, only: [ :show, :follow, :unfollow ]
 
     def index
       if params[:query].present?
@@ -27,11 +27,11 @@ class UsersController < ApplicationController
         @posts = @user.posts.joins(:images_attachments).distinct.includes(:likes, :comments)
         @saved = Post.joins(:bookmarks).where("bookmarks.user_id=?", current_user.id).joins(:images_attachments).distinct.
         includes(:likes, :comments) if @user == current_user
-        @posts = current_user.posts.archived.order(created_at: :desc)
+        @archivedposts = current_user.posts.archived.order(created_at: :desc)
         @followers = @user.followers
         @following = @user.following
     end
-   
+
     def update
         if @user.update(user_params)
           respond_to do |format|
@@ -42,12 +42,12 @@ class UsersController < ApplicationController
           render :edit, status: :unprocessable_entity
         end
     end
-  
+
     def follow
       current_user.follow(@user)
       redirect_to @user, notice: "You are now following #{@user.name}."
     end
-  
+
     def unfollow
       current_user.unfollow(@user)
       redirect_to @user, notice: "You have unfollowed #{@user.name}."

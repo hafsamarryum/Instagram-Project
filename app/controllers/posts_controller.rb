@@ -5,7 +5,6 @@ class PostsController < ApplicationController
   def index
     @posts = Post.where(archived: false).includes(:images_attachments, :user, :likes).order(created_at: :desc)
     @post = Post.new
-    @pagy, @posts = pagy(@posts, items: 6)
   end
 
 

@@ -1,4 +1,8 @@
- <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+<div class="w-100 d-flex justify-content-center align-items-center border border-danger ">
+ <div class="d-flex justify-content-center align-items-center">
+   <h1 class="fw-bold mt-5">Welcome to Instagram Clone </h1>
+    <p>Please register or sign in to continue. </p>
+     <%= button_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-success" %>
 
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+ </div>
+</div>

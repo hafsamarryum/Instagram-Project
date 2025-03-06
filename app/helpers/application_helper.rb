@@ -1,6 +1,4 @@
 module ApplicationHelper
-  include Pagy::Frontend
-
   def avatar_or_initial(user, size: 50)
     return content_tag(:div, "?",
       class: "d-flex align-items-center justify-content-center rounded-circle bg-secondary text-white fw-bold me-2",

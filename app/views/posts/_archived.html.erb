@@ -2,7 +2,7 @@
 <div class="w-50 d-flex flex-column justify-content-center align-items-center">
 <div id="archived_posts">
   <% if @posts.present? %>
-    <%= render 'posts/posts_list', posts: @posts %>
+    <%= render 'posts/posts_list', posts: @archivedposts %>
   <% else %>
     <p class="m-2 p-2">No archived posts found.</p>
   <% end %>

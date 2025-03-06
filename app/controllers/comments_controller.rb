@@ -1,20 +1,25 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:create]
+  before_action :set_post, only: [ :create ]
   before_action :set_comment, only: [ :destroy ]
 
   def create
+    if @post.user == current_user
+      flash[:alert] = "You cannot comment on your own post."
+      redirect_to posts_path(@post) and return
+    end
+
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
 
     if @comment.save
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to post_path(@post), notice: "Comment added!" }
+        format.html { redirect_to posts_path(@post), notice: "Comment added!" }
       end
     else
       respond_to do |format|
-        format.html { redirect_to post_path(@post), alert: "Unable to add comment." }
+        format.html { redirect_to posts_path(@post), alert: "Unable to add comment." }
       end
     end
   end

@@ -1,16 +1,9 @@
 class User < ApplicationRecord
-  # enum role: { user: 0, admin: 1 }
-
-  # Check if user is an admin
-  # def admin?
-  #   role == 'admin'
-  # end
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable, :confirmable, :trackable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # after_initialize :set_default_role, if: :new_record?
 
   has_many :posts, dependent: :destroy
   has_many :likes
@@ -33,7 +26,6 @@ class User < ApplicationRecord
   validates :gender, inclusion: { in: [ "male", "female", "other" ], message: "%{value} is not a valid gender" }, allow_nil: true
   validates :birthday, presence: true, allow_nil: true
   validates :location, length: { maximum: 100 }
-   # validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "must be a valid email address" }
 
    # Methods to follow and unfollow
    def follow(other_user)
@@ -48,10 +40,4 @@ class User < ApplicationRecord
   def following?(other_user)
     following.include?(other_user)
   end
-
-  private
-
-  #  def set_default_role
-  #    self.role ||= :user
-  #  end
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root "posts#index"
 
   devise_for :users,
@@ -14,7 +13,6 @@ Rails.application.routes.draw do
       post :unfollow
     end
   end
-
 
   # Posts routes
   resources :posts, only: [ :index, :show, :create, :destroy ] do
