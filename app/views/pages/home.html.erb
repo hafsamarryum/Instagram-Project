@@ -1,8 +1,11 @@
-<div class="w-100 d-flex justify-content-center align-items-center border border-danger ">
- <div class="d-flex justify-content-center align-items-center">
-   <h1 class="fw-bold mt-5">Welcome to Instagram Clone </h1>
-    <p>Please register or sign in to continue. </p>
-     <%= button_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-success" %>
-
+<div class="w-100 d-flex justify-content-center align-items-center mt-4 ">
+<div class="w-75 d-flex justify-content-center align-items-center mt-5 mr-2" style="background-color:rgb(204, 238, 255); height: 350px;">
+ <div class="d-flex flex-column justify-content-center align-items-center"> 
+   <h2 class="fw-bold mt-5">Welcome to Instagram Clone </h2>
+    <p style="color: #6c757d; font-weight:bold;">Please register or sign in to continue. </p>
+    <div class="d-flex justify-content-center align-items-center gap-2 pb-4">
+     <%= link_to "Sign Up",  new_user_registration_path, class:"btn btn-success" %>
+     <%= link_to "Sign In", new_user_session_path, class: "btn btn-secondary" %>
+    </div>
  </div>
 </div>

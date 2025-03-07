@@ -13,7 +13,7 @@
       <% end %>
 
       <% if post.images.attached? %>
-        <%= image_tag post.images.first, class: "img-fluid mx-auto rounded w-100" %>
+        <%= image_tag post.images.first, class: "img-fluid rounded w-100 h-auto" %>
       <% end %>
     </div>
   <% end %>

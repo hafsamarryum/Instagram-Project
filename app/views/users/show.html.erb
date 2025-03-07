@@ -30,21 +30,29 @@
       <div class="tab-content pb-3" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-posts" role="tabpanel" aria-labelledby="nav-posts-tab">
           <div class="w-100 px-4">
+           <% if @posts.any? %>
             <%= render "post", {posts: @posts} %>
+             <% else %>
+            <p class="m-2 p-2 text-center">No posts found.</p>
+           <% end %>
           </div>
         </div>
         <div class="tab-pane fade" id="nav-saved" role="tabpanel" aria-labelledby="nav-saved-tab">
           <div class="w-100 px-4">
-          <% if @user == current_user %>
+          <% if @saved.any? %>
              <%= render "post", {posts: @saved} %>
             <% else %>
-            <p class="m-2 p-2">No Saved posts found.</p>
+            <p class="m-2 p-2 text-center">No Saved posts found.</p>
           <% end %>
           </div>
         </div>
         <div class="tab-pane fade" id="nav-archived-posts" role="tabpanel" aria-labelledby="nav-archived-posts-tab">
           <div class="w-100 px-4">
+          <% if @archivedposts.any? %>
             <%= render 'posts/archived' %>
+            <% else %>
+            <p class="m-2 p-2 text-center">No archived posts found.</p>
+          <% end %>
           </div>
         </div>
         </div>

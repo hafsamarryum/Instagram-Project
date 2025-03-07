@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "posts#index"
+  root "pages#home"
 
   devise_for :users,
     path: "",
@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       post :follow
       post :unfollow
     end
+  end
+
+  authenticated :user do
+    root "posts#index", as: :authenticated_root
   end
 
   # Posts routes

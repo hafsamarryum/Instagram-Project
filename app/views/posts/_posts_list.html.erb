@@ -21,13 +21,11 @@
        <%= button_to post_path(post), method: :delete, class: "ms-auto mx-0 border-0 bg-transparent" do %>
         <i class="bi bi-trash fs-6 text-muted"></i>
         <% end %>
-
       <% end %>
     </div>
 
   </div>
    <hr class="mt-1">
-
 
   <div class="p-3 pt-0 pb-2 w-100 ">
     <%= render "posts/photos", {post: post} %>
@@ -51,6 +49,8 @@
     <div class="fs-6">
       <span><strong><%= post.user.name %></strong></span>
       <span><%= post.content %></span>
+      <br>
+      <span class="ms-2"><%= post.likes.size %> <strong> Likes </strong></span>
     </div>
 
      <div id="like-text-post-<%= post.id.to_s %>" >

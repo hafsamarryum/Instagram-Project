@@ -35,6 +35,8 @@
         <div>
           <span><strong><%= @post.user.name %></strong></span>
           <span><%= @post.content %></span>
+          <br>
+          <span class="ms-2"><%= @post.likes.size %> <strong> Likes </strong></span>
         </div>
          <% end %>
         <!--load comment -->
